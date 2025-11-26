@@ -3,13 +3,13 @@
 #include <Windows.h>
 #include <time.h>
 #include <stdio.h>
-//·ê :
-// ÀÏÁÖÀÏ ÁøÇà
-// µ¿¹° Ãß°¡ µÉ ¼ö·Ï ¾Ë¹Ùºñ Áõ°¡
-// °¢ Çàµ¿µéÀº 2¹ø ÁøÇà ½Ã ÇÏ·ç Áö³²
+//ë£° :
+// ì¼ì£¼ì¼ ì§„í–‰
+// ë™ë¬¼ ì¶”ê°€ ë  ìˆ˜ë¡ ì•Œë°”ë¹„ ì¦ê°€
+// ê° í–‰ë™ë“¤ì€ 2ë²ˆ ì§„í–‰ ì‹œ í•˜ë£¨ ì§€ë‚¨
 
 int main(void) {
-    animal* pet[MAX_ANIMAL] = { 0 }; // animalÀ» °¡¸®Å°´Â Æ÷ÀÎÅÍ ¹è¿­
+    animal* pet[MAX_ANIMAL] = { 0 }; // animalì„ ê°€ë¦¬í‚¤ëŠ” í¬ì¸í„° ë°°ì—´
     int pet_count = 0;
     int day = 1;
     int actions_today = 0;
@@ -20,44 +20,44 @@ int main(void) {
     {
         system("cls");
         printf("*******[ Pet Manager Program ]*******\n");
-        printf("Day %d / %d  |  ¿À´Ã Çàµ¿ %d / %d\n", day, TURN, actions_today, ACTIONS_PER_DAY);
-        printf("µî·ÏµÈ µ¿¹°: %d¸¶¸®\n\n", pet_count);
-        printf("[1] µî·ÏÇÏ±â\n");
-        printf("[2] ³î±â\n");
-        printf("[3] ¾Ä±â±â\n");
-        printf("[4] ¸ÔÀÌ ÁÖ±â\n");
-        printf("[5] Á¤º¸ º¸±â\n");
-        printf("[0] Á¾·á\n\n");
-        printf("ÀÔ·Â : ");
+        printf("Day %d / %d  |  ì˜¤ëŠ˜ í–‰ë™ %d / %d\n", day, TURN, actions_today, ACTIONS_PER_DAY);
+        printf("ë“±ë¡ëœ ë™ë¬¼: %dë§ˆë¦¬\n\n", pet_count);
+        printf("[1] ë“±ë¡í•˜ê¸°\n");
+        printf("[2] ë†€ê¸°\n");
+        printf("[3] ì”»ê¸°ê¸°\n");
+        printf("[4] ë¨¹ì´ ì£¼ê¸°\n");
+        printf("[5] ì •ë³´ ë³´ê¸°\n");
+        printf("[0] ì¢…ë£Œ\n\n");
+        printf("ì…ë ¥ : ");
 
         int input;
         scanf("%d", &input);
 
         if (input == 0)
         {
-            printf("Á¾·á¸¦ ¼±ÅÃÇß½À´Ï´Ù.\n");
+            printf("ì¢…ë£Œë¥¼ ì„ íƒí–ˆìŠµë‹ˆë‹¤.\n");
             salary = 0;
             break;
         }
 
-        int action_consumed = 0;
+        bool action_consumed = false;
 
         switch (input)
         {
         case 1:
             if (pet_count >= MAX_ANIMAL)
             {
-                printf("´õ ÀÌ»ó µ¿¹°À» µî·ÏÇÒ ¼ö ¾ø½À´Ï´Ù.\n");
+                printf("ë” ì´ìƒ ë™ë¬¼ì„ ë“±ë¡í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\n");
                 Sleep(1200);
                 break;
             }
-            pet[pet_count] = (animal*)malloc(sizeof(animal));
+            pet[pet_count] = (animal*)malloc(sizeof(animal)); // ìë¦¬ í™•ë³´
 
             create_animal(pet[pet_count]);
             pet_count++;
 
             save_animals(pet, pet_count);
-            printf("µî·Ï ¿Ï·á!\n");
+            printf("ë“±ë¡ ì™„ë£Œ!\n");
             Sleep(1200);
             break;
 
@@ -67,7 +67,7 @@ int main(void) {
             if (idx >= 0)
             {
                 play_with_animal(pet[idx]);
-                action_consumed = 1;
+                action_consumed = true;
             }
             Sleep(1200);
             break;
@@ -78,7 +78,7 @@ int main(void) {
             if (idx >= 0)
             {
                 wash_animal(pet[idx]);
-                action_consumed = 1;
+                action_consumed = true;
             }
             Sleep(1200);
             break;
@@ -89,7 +89,7 @@ int main(void) {
             if (idx >= 0)
             {
                 feed_animal(pet[idx]);
-                action_consumed = 1;
+                action_consumed = true;
             }
             Sleep(1200);
             break;
@@ -99,7 +99,7 @@ int main(void) {
             break;
 
         default:
-            printf("Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù.\n");
+            printf("ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤.\n");
             Sleep(1000);
             break;
         }
@@ -111,7 +111,7 @@ int main(void) {
         {
             actions_today++;
             save_animals(pet, pet_count);
-            //´çÀÏ Çàµ¿ °¡´É È½¼ö ³ÑÀ¸¸é ÇÏ·ç ³Ñ±â°í Çàµ¿ È½¼ö ÃÊ±âÈ­
+            //ë‹¹ì¼ í–‰ë™ ê°€ëŠ¥ íšŸìˆ˜ ë„˜ìœ¼ë©´ í•˜ë£¨ ë„˜ê¸°ê³  í–‰ë™ íšŸìˆ˜ ì´ˆê¸°í™”
             if (actions_today >= ACTIONS_PER_DAY)
             {
                 day++;
@@ -130,16 +130,16 @@ int main(void) {
     if (!game_end && day > TURN)
     {
         salary = pet_count * 10000;
-        printf("\nÀÏÁÖÀÏ °£ÀÇ º¸È£¸¦ ¸¶ÃÆ½À´Ï´Ù!\n");
-        printf("³²¾ÆÀÖ´Â µ¿¹° %d¸¶¸® ±âÁØ ±Ş¿©: %d¿ø\n", pet_count, salary);
+        printf("\nì¼ì£¼ì¼ ê°„ì˜ ë³´í˜¸ë¥¼ ë§ˆì³¤ìŠµë‹ˆë‹¤!\n");
+        printf("ë‚¨ì•„ìˆëŠ” ë™ë¬¼ %dë§ˆë¦¬ ê¸°ì¤€ ì•Œë°”ë¹„: %dì›\n", pet_count, salary);
     }
     else if (!game_end && day <= TURN)
     {
-        printf("\n°ÔÀÓÀÌ Áß´ÜµÇ¾ú½À´Ï´Ù.\n");
+        printf("\nê²Œì„ì´ ì¤‘ë‹¨ë˜ì—ˆìŠµë‹ˆë‹¤.\n");
     }
     else
     {
-        printf("\n°ü¸® ½ÇÆĞ·Î ±Ş¿©´Â 0¿øÀÔ´Ï´Ù.\n");
+        printf("\nê´€ë¦¬ ì‹¤íŒ¨ë¡œ ì•Œë°”ë¹„ëŠ” 0ì›ì…ë‹ˆë‹¤.\n");
     }
     save_animals(pet, pet_count);
     free_all(pet, pet_count);
