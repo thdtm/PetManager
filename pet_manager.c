@@ -3,7 +3,7 @@
 #include <stdlib.h> 
 #include <Windows.h> 
 
-// °ªÀÌ ÃÊ°úÇÏ°Å³ª À½¼ö µÇ¸é ¼³Á¤
+// ê°’ì´ ì´ˆê³¼í•˜ê±°ë‚˜ ìŒìˆ˜ ë˜ë©´ ì„¤ì •
 static void clamp_stat(int* value)
 {
     if (*value > 100)
@@ -12,49 +12,52 @@ static void clamp_stat(int* value)
         *value = 0;
 }
 
-//±¸Á¶Ã¼ º¯¼ö ÃÊ±âÈ­
+// windows.híŒŒì¼ì— ìˆëŠ” systemí•¨ìˆ˜ë¡œ í™”ë©´ ì§€ìš°ê³  ë³€ìˆ˜ ì´ˆê¸°í™”
 void create_animal(animal* a) {
     system("cls");
     a->health = 100;
     a->clean = 100;
     a->food = 100;
 
-    printf("µ¿¹°ÀÇ ÀÌ¸§ : ");
+    printf("ë™ë¬¼ì˜ ì´ë¦„ : ");
     scanf("%30s", a->name);
-    printf("µ¿¹°ÀÇ ³ªÀÌ : ");
+    printf("ë™ë¬¼ì˜ ë‚˜ì´ : ");
     scanf("%d", &a->age);
-    printf("µ¿¹°ÀÇ Á¾ : ");
+    printf("ë™ë¬¼ì˜ ì¢… : ");
     scanf("%30s", a->species);
-    printf("Âü°í»çÇ× : ");
+    printf("ì°¸ê³ ì‚¬í•­ : ");
     scanf("%50s", a->commit);
 }
 
-// ±¸Á¶Ã¼µé Ãâ·Â
+// êµ¬ì¡°ì²´ë“¤ ì¶œë ¥ ( ì´ì¤‘ í¬ì¸í„° ì“´ ì´ìœ  : í¬ì¸í„° ë°°ì—´ë“¤ì´ë¼ì„œ ì´ ë°°ì—´ì„ ê°€ë¦¬í‚¤ê¸° ìœ„í•´ì„œ )
 void display_info(animal** ani, int count, int day, int actions_today)
 {
     system("cls");
-    printf("=== Day %d / %d === (¿À´Ã »ç¿ëÇÑ Çàµ¿: %d/%d)\n", day, TURN, actions_today, ACTIONS_PER_DAY);
-    printf("µî·Ï µÈ µ¿¹° ¼ö : %d \n\n", count);
+    printf("=== Day %d / %d === (ì˜¤ëŠ˜ ì‚¬ìš©í•œ í–‰ë™: %d/%d)\n", day, TURN, actions_today, ACTIONS_PER_DAY);
+    printf("ë“±ë¡ ëœ ë™ë¬¼ ìˆ˜ : %d \n\n", count);
 
     for (int i = 0; i < count; i++)
     {
-        printf("[%d] %s (%s) | ³ªÀÌ:%d\n", i + 1, ani[i]->name, ani[i]->species, ani[i]->age);
-        printf("  Ã¼·Â:%3d  ¹è°íÇÄ:%3d  Ã»°áµµ:%3d\n", ani[i]->health, ani[i]->food, ani[i]->clean);
-        printf("  Âü°í»çÇ×: %s\n\n", ani[i]->commit);
+        printf("[%d] %s (%s) | ë‚˜ì´:%d\n", i + 1, ani[i]->name, ani[i]->species, ani[i]->age);
+        printf("  ì²´ë ¥:%3d  ë°°ê³ í””:%3d  ì²­ê²°ë„:%3d\n", ani[i]->health, ani[i]->food, ani[i]->clean);
+        printf("  ì°¸ê³ ì‚¬í•­: %s\n\n", ani[i]->commit);
     }
     system("pause");
 }
+// ani[i]->member variable ( anië¼ëŠ” ì´ì¤‘í¬ì¸í„°ê°€ ië²ˆì§¸ì— ìˆëŠ” ì›ì†Œ(ië²ˆì§¸ í¬ì¸í„°)ë¡œ ê°€ì„œ []ì—°ì‚°ìœ¼ë¡œ ê·¸ í¬ì¸í„° ì ‘ê·¼ í›„ -> ì—°ì‚°ìœ¼ë¡œ ê·¸ í¬ì¸í„°ê°€ ê°€ë¦¬í‚¤ê³ ìˆëŠ” êµ¬ì¡°ì²´ì— ì ‘ê·¼) 
 
-// ****************Çàµ¿ ÇÔ¼ö**********************
+// ****************í–‰ë™ í•¨ìˆ˜**********************
 void play_with_animal(animal* target)
 {
     target->health += 15;
     target->clean -= 20;
     target->food -= 15;
-    clamp_stat(&target->health);
+
+    // ì•„ê¹Œ ë§Œë“  clamp_statí•¨ìˆ˜ë¡œ ê°’ ë³´ì •ì„ í•´ì£¼ì—ˆìŠµë‹ˆë‹¤.
+    clamp_stat(&target->health); 
     clamp_stat(&target->clean);
     clamp_stat(&target->food);
-    printf("%s¿Í(°ú) ³î¾ÆÁÖ¾ú½À´Ï´Ù.\n", target->name);
+    printf("%sì™€(ê³¼) ë†€ì•„ì£¼ì—ˆìŠµë‹ˆë‹¤.\n", target->name);
 }
 
 void wash_animal(animal* target)
@@ -65,7 +68,7 @@ void wash_animal(animal* target)
     clamp_stat(&target->health);
     clamp_stat(&target->clean);
     clamp_stat(&target->food);
-    printf("%s¸¦ ±ú²ıÇÏ°Ô ¾Ä°å½À´Ï´Ù.\n", target->name);
+    printf("%së¥¼ ê¹¨ë—í•˜ê²Œ ì”»ê²¼ìŠµë‹ˆë‹¤.\n", target->name);
 }
 
 void feed_animal(animal* target)
@@ -76,35 +79,37 @@ void feed_animal(animal* target)
     clamp_stat(&target->health);
     clamp_stat(&target->clean);
     clamp_stat(&target->food);
-    printf("%s¿¡°Ô ¸ÀÀÖ´Â ½Ä»ç¸¦ Á¦°øÇß½À´Ï´Ù.\n", target->name);
+    printf("%sì—ê²Œ ë§›ìˆëŠ” ì‹ì‚¬ë¥¼ ì œê³µí–ˆìŠµë‹ˆë‹¤.\n", target->name);
 }
 
-
+// í–‰ë™í•¨ìˆ˜ë¥¼ ê³ ë¥¼ ë•Œ ì–´ë–¤ ë™ë¬¼ì„ ê³ ë¥¼ì§€ ì„ íƒí•  ë•Œ í˜¸ì¶œë¨.
 int select_animal(animal** ani, int count)
 {
+    // ë°°ì—´ì— êµ¬ì¡°ì²´ê°€ 0ê°œë¼ë©´ ì¡°ê±´ ì„±ë¦½
     if (count == 0)
     {
-        printf("°ü¸® ÁßÀÎ µ¿¹°ÀÌ ¾ø½À´Ï´Ù.\n");
+        printf("ê´€ë¦¬ ì¤‘ì¸ ë™ë¬¼ì´ ì—†ìŠµë‹ˆë‹¤.\n");
         Sleep(1200);
         return -1;
     }
-
+    // ë°°ì—´ì— ìˆëŠ” êµ¬ì¡°ì²´ë“¤ì„ ì¶œë ¥
     for (int i = 0; i < count; i++)
     {
         printf("[%d] %s (%s)\n", i + 1, ani[i]->name, ani[i]->species);
     }
 
     int choice;
-    printf("´ë»ó µ¿¹° ¹øÈ£ ¼±ÅÃ : ");
+    printf("ëŒ€ìƒ ë™ë¬¼ ë²ˆí˜¸ ì„ íƒ : ");
     scanf("%d", &choice);
 
     if (choice < 1 || choice > count)
     {
-        printf("Àß¸øµÈ ¹øÈ£ÀÔ´Ï´Ù.\n");
+        printf("ì˜ëª»ëœ ë²ˆí˜¸ì…ë‹ˆë‹¤.\n");
         Sleep(1200);
         return -1;
     }
-    return choice - 1; // ÀÎµ¦½º¿¡ ¸Â°Ô
+    // ë°°ì—´ì€ 0ë²ˆë¶€í„°ë‹ˆê¹Œ -1ì„ í•´ì¤Œ
+    return choice - 1; // ì¸ë±ìŠ¤ì— ë§ê²Œ
 }
 
 // Game over condition check
@@ -112,9 +117,10 @@ bool check_game_over(animal** ani, int count)
 {
     for (int i = 0; i < count; i++)
     {
+        // 3ê°€ì§€ ìƒíƒœ ì¤‘ í•˜ë‚˜ë¼ë„ 0ì´ë˜ë©´ ê²Œì„ì´ ì˜¤ë²„ë¨
         if (ani[i]->food == 0 || ani[i]->clean == 0 || ani[i]->health == 0)
         {
-            printf("%sÀÇ »óÅÂ°¡ ÇÑ°è¿¡ µµ´ŞÇß½À´Ï´Ù. º¸È£ ½ÇÆĞ...\n", ani[i]->name);
+            printf("%sì˜ ìƒíƒœê°€ í•œê³„ì— ë„ë‹¬í–ˆìŠµë‹ˆë‹¤. ë³´í˜¸ ì‹¤íŒ¨...\n", ani[i]->name);
             Sleep(1500);
             return true; 
         }
@@ -125,22 +131,19 @@ bool check_game_over(animal** ani, int count)
 // file I/O
 void save_animals(animal** ani, int count)
 {
+    // íŒŒì¼ ì—´ê³  ì“°ê¸°ë¡œ 
     FILE* fp = fopen(SAVE_PATH, "w");
-    if (fp == NULL) {
-        printf("°æ°í: ÆÄÀÏ ÀúÀå¿¡ ½ÇÆĞÇß½À´Ï´Ù.\n");
-        return;
-    }
 
-    fprintf(fp, "===== º¸È£ µ¿¹° ÇöÈ² (%d¸¶¸®) =====\n\n", count);
+    fprintf(fp, "===== ë³´í˜¸ ë™ë¬¼ í˜„í™© (%dë§ˆë¦¬) =====\n\n", count);
     for (int i = 0; i < count; i++)
     {
-        fprintf(fp, "[%d] ÀÌ¸§:%s Á¾:%s ³ªÀÌ:%d\n", i + 1, ani[i]->name, ani[i]->species, ani[i]->age);
-        fprintf(fp, "  Ã¼·Â:%d ¹è°íÇÄ:%d Ã»°á:%d Âü°í:%s\n\n", ani[i]->health, ani[i]->food, ani[i]->clean, ani[i]->commit);
+        fprintf(fp, "[%d] ì´ë¦„:%s ì¢…:%s ë‚˜ì´:%d\n", i + 1, ani[i]->name, ani[i]->species, ani[i]->age);
+        fprintf(fp, "  ì²´ë ¥:%d ë°°ê³ í””:%d ì²­ê²°:%d ì°¸ê³ :%s\n\n", ani[i]->health, ani[i]->food, ani[i]->clean, ani[i]->commit);
     }
     fclose(fp);
 }
 
-// ¸Ş¸ğ¸® ÇØÁ¦
+// ë©”ëª¨ë¦¬ í•´ì œ ( ë©”ëª¨ë¦¬ ëˆ„ìˆ˜ ë°©ì§€ )
 void free_all(animal** ani, int count)
 {
     for (int i = 0; i < count; i++)
