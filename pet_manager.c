@@ -143,7 +143,6 @@ void save_animals(animal** ani, int count)
     fclose(fp);
 }
 
-// 메모리 해제 ( 메모리 누수 방지 )
 void free_all(animal** ani, int count)
 {
     for (int i = 0; i < count; i++)
