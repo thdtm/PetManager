@@ -9,7 +9,7 @@
 // 각 행동들은 2번 진행 시 하루 지남
 
 int main(void) {
-    animal* pet[MAX_ANIMAL] = { 0 }; // animal을 가리키는 포인터 배열
+    animal* pet[MAX_ANIMAL] = { 0 }; 
     int pet_count = 0;
     int day = 1;
     int actions_today = 0;
